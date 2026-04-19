@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zerisa - Latihan Soal Interaktif</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .quiz-container {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            max-width: 800px;
+            margin: 20px auto;
+            border-top: 8px solid var(--secondary-yellow);
+        }
+        
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px dashed #e2e8f0;
+        }
+        
+        .progress-text {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: var(--text-muted);
+            background: #f0f7fb;
+            padding: 8px 15px;
+            border-radius: 15px;
+        }
+
+        .question-text {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary-blue-dark);
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        .options-list {
+            list-style: none;
+        }
+        
+        .option-item {
+            margin-bottom: 15px;
+        }
+        
+        .option-label {
+            display: flex;
+            align-items: center;
+            background: #f8fafc;
+            padding: 18px 20px;
+            border-radius: 15px;
+            cursor: pointer;
+            border: 3px solid transparent;
+            transition: all 0.2s;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+        
+        .option-label:hover {
+            background: #eaf1fa;
+            transform: translateX(5px);
+        }
+
+        input[type="radio"] {
+            margin-right: 15px;
+            transform: scale(1.5);
+        }
+
+        input[type="radio"]:checked + .option-label {
+            border-color: var(--btn-action);
+            background: #eaf1fa;
+            box-shadow: 0 4px 10px rgba(37, 99, 235, 0.1);
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 30px;
+        }
+
+        /* Result Styles */
+        .result-area {
+            display: none;
+            text-align: center;
+        }
+        .score-circle {
+            width: 150px;
+            height: 150px;
+            background: var(--btn-action);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            font-weight: 800;
+            margin: 0 auto 30px auto;
+            box-shadow: 0 10px 20px rgba(37, 99, 235, 0.3);
+            border: 8px solid #eaf1fa;
+            font-family: 'Fredoka', sans-serif;
+        }
+        
+        .explanation-card {
+            background: #f8fafc;
+            border-left: 5px solid #cbd5e1;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 0 15px 15px 0;
+            text-align: left;
+        }
+        .correct-card { border-left-color: #22c55e; background: #f0fdf4; }
+        .wrong-card { border-left-color: #ef4444; background: #fef2f2; }
+        
+        .ans-badge {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .back-btn {
+            background: #e2e8f0;
+            color: var(--text-main);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-bottom: 20px;
+            text-decoration: none;
+            display: inline-block;
+            font-family: 'Nunito', sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">Zerisa</div>
+        <div class="user-info" id="userNameDisplay">Halo!</div>
+    </nav>
+
+    <div class="dashboard-content" style="overflow-y: visible;">
+        <a href="dashboard.html" class="back-btn">Kembali ke Dashboard</a>
+        
+        <div class="quiz-container">
+            
+            <!-- Quiz active view -->
+            <div id="quizView">
+                <div class="quiz-header">
+                    <h2 style="margin:0;">Kuis Interaktif</h2>
+                    <div class="progress-text">Soal <span id="currentIndexTxt">1</span> dari <span id="totalIndexTxt">-</span></div>
+                </div>
+
+                <div id="questionText" class="question-text">
+                    Sedang memuat soal...
+                </div>
+                
+                <form id="questionForm">
+                    <ul class="options-list" id="optionsContainer">
+                        <!-- Options generated here -->
+                    </ul>
+                    <div class="nav-buttons">
+                        <button type="button" class="btn" id="nextBtn" style="max-width: 200px; font-size: 1.1rem; padding: 15px;">Lanjut</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Result view -->
+            <div id="resultView" class="result-area">
+                <h2>Yeay, Selesai!</h2>
+                <p style="margin-bottom: 20px; color: var(--text-muted); font-weight: bold;">Skormu telah tersimpan.</p>
+                <div class="score-circle" id="finalScoreDisplay">100</div>
+                
+                <h3 style="margin: 30px 0 15px 0; text-align: left; color: var(--primary-blue-dark);">Pembahasan Lengkap:</h3>
+                <div id="explanationContainer">
+                    <!-- Explanations go here -->
+                </div>
+                
+                <a href="dashboard.html" class="btn" style="display:inline-block; max-width:300px; margin-top: 30px;">Kembali ke Beranda Utama</a>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="quiz.js"></script>
+</body>
+</html>

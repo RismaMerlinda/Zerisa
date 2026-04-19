@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zerisa - Login</title>
+    <meta name="description" content="Masuk ke Zerisa, platfom edukasi inklusif.">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="auth-container">
+        <div class="card">
+            <h1>Zerisa</h1>
+            <p>Selamat datang kembali!</p>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" class="form-control" required placeholder="Cth: budi@sekolah.com">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" class="form-control" required placeholder="Katakunci rahasia">
+                </div>
+                <button type="submit" class="btn">Masuk 🚀</button>
+            </form>
+            <a href="index.html" class="link-text">Belum punya akun? Daftar di sini</a>
+            <div id="alertMessage" style="margin-top: 15px; color: red; font-weight: bold;"></div>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zerisa - Baca Materi Lengkap</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            overflow-y: auto !important;
+            height: auto !important;
+        }
+        .dashboard-content { padding-bottom: 60px; }
+        .materi-workspace {
+            max-width: 1000px;
+            margin: 20px auto;
+        }
+        
+        .materi-header-box {
+            text-align: center;
+            background: white;
+            padding: 30px;
+            border-radius: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border-bottom: 6px solid var(--primary-blue);
+            margin-bottom: 30px;
+        }
+
+        h1#materiTitle {
+            font-size: 2.5rem;
+            color: var(--primary-blue-dark);
+            margin-bottom: 10px;
+        }
+        
+        .section-box {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+            margin-bottom: 30px;
+            border: 2px solid #eaf1fa;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            color: var(--btn-action);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* TABS (Teks Lengkap vs Sederhana) */
+        .tab-controls {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .tab-btn {
+            background: #f0f7fb;
+            color: var(--text-muted);
+            border: 2px solid transparent;
+            padding: 10px 20px;
+            border-radius: 15px;
+            font-weight: 800;
+            cursor: pointer;
+            font-family: 'Nunito', sans-serif;
+            transition: all 0.3s;
+        }
+        .tab-btn.active {
+            background: #eaf1fa;
+            color: var(--btn-action);
+            border-color: var(--btn-action);
+        }
+        .tab-content-box {
+            display: none;
+            font-size: 1.15rem;
+            line-height: 1.8;
+            color: var(--text-main);
+        }
+        .tab-content-box.active {
+            display: block;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        /* AUDIO */
+        .audio-container {
+            background: #fffaeb;
+            border: 2px dashed #fde047;
+            text-align: center;
+            border-radius: 20px;
+            padding: 20px;
+        }
+
+        /* YouTube VIDEO */
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            background: #000;
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+        }
+
+        /* DIAGRAM INTERAKTIF */
+        .diagram-grid {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .diagram-item {
+            background: #f8fafc;
+            border: 3px solid #e2e8f0;
+            border-radius: 20px;
+            width: 250px;
+            text-align: center;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        .diagram-item:hover {
+            border-color: var(--primary-blue);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(148, 184, 233, 0.2);
+        }
+        .diagram-icon { font-size: 4rem; margin-bottom: 10px; }
+        .diagram-title { font-weight: 800; font-size: 1.2rem; color: var(--primary-blue-dark); margin-bottom: 10px;}
+        .diagram-desc { 
+            font-size: 0.95rem; color: var(--text-muted); 
+            max-height: 0; opacity: 0; transition: all 0.3s; 
+        }
+        .diagram-item:hover .diagram-desc {
+            max-height: 100px;
+            opacity: 1;
+            margin-top: 10px;
+        }
+
+        /* TIMELINE (Step By Step) */
+        .timeline {
+            position: relative;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background-color: var(--primary-blue);
+            top: 0;
+            bottom: 0;
+            left: 20px;
+            border-radius: 2px;
+        }
+        .tl-item {
+            padding: 10px 40px;
+            position: relative;
+            background: inherit;
+            width: 100%;
+        }
+        .tl-item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            right: auto;
+            background-color: white;
+            border: 4px solid var(--btn-action);
+            top: 15px;
+            border-radius: 50%;
+            z-index: 1;
+            left: 12px;
+        }
+        .tl-content {
+            padding: 15px 25px;
+            background: white;
+            border-radius: 15px;
+            border: 2px solid #e2e8f0;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+        }
+        .tl-content h4 { color: var(--btn-action); margin-bottom: 5px; font-size: 1.1rem; }
+
+        .back-btn {
+            background: #e2e8f0;
+            color: var(--text-main);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-bottom: 20px;
+            text-decoration: none;
+            display: inline-block;
+            font-family: 'Nunito', sans-serif;
+        }
+
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">Zerisa</div>
+        <div class="user-info" id="userNameDisplay">Halo!</div>
+    </nav>
+
+    <div class="dashboard-content" style="overflow-y: visible;">
+        <a href="dashboard.html" class="back-btn">Kembali ke Dashboard</a>
+        
+        <div class="materi-workspace">
+            <!-- 1. Header -->
+            <div class="materi-header-box">
+                <h1 id="materiTitle">Memuat Materi...</h1>
+                <p style="font-weight: 600; color: var(--btn-action);"><span class="badge" style="background:#eaf1fa;">Multi-Format Output</span> Mode Akses Lengkap</p>
+            </div>
+
+            <!-- 2. Reading Text (Full vs Simple) -->
+            <div class="section-box">
+                <h2 class="section-title">Bacaan Akademik</h2>
+                <div class="tab-controls">
+                    <button class="tab-btn active" onclick="switchTab('full')">Teks Lengkap</button>
+                    <button class="tab-btn" onclick="switchTab('simple')">Teks Sederhana</button>
+                </div>
+                <div id="tab-full" class="tab-content-box active">
+                    Sedang memuat data akademik...
+                </div>
+                <div id="tab-simple" class="tab-content-box">
+                    Sedang memuat ringkasan untuk kemudahan literasi (dyslexia friendly)...
+                </div>
+            </div>
+
+            <!-- 3. Audio Player -->
+            <div class="section-box audio-container" id="audioSection" style="display: none;">
+                <h2 class="section-title" style="color: #b45309; justify-content: center;">Mode Dengar (Audio)</h2>
+                <p style="margin-bottom: 15px; color: #92400e; font-weight: 600;">Dengarkan penjelasan lisan dari guru rekaman kamil</p>
+                <audio id="materiAudio" controls class="audio-player" style="background: transparent; margin:0;" preload="metadata"></audio>
+            </div>
+
+            <!-- 4. Video Pembelajaran -->
+            <div class="section-box" id="videoSection" style="display: none;">
+                <h2 class="section-title">Video Animasi Edukasi</h2>
+                <div class="video-container">
+                    <iframe id="materiVideo" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
+                </div>
+            </div>
+
+            <!-- 5. Visual Diagram Interaktif (Khusus Pernapasan) -->
+            <div class="section-box" id="diagramSection" style="display: none;">
+                <h2 class="section-title">Diagram Interaktif Organ Tubuh</h2>
+                <p style="margin-bottom: 20px; font-weight: 600; text-align:center;">Sentuh atau arahkan kursor ke masing-masing organ untuk tahu fungsinya!</p>
+                <div class="diagram-grid">
+                    <div class="diagram-item">
+                        <div class="diagram-icon"></div>
+                        <div class="diagram-title">Hidung</div>
+                        <div class="diagram-desc">Gerbang utama udara. Di sini udara disaring oleh bulu-bulu halus dan dihangatkan.</div>
+                    </div>
+                    <div class="diagram-item">
+                        <div class="diagram-icon"></div>
+                        <div class="diagram-title">Trakea (Tenggorokan)</div>
+                        <div class="diagram-desc">Pipa panjang seperti cincin tulang rawan yang menyalurkan udara murni menuju dada.</div>
+                    </div>
+                    <div class="diagram-item">
+                        <div class="diagram-icon"></div>
+                        <div class="diagram-title">Paru - Paru</div>
+                        <div class="diagram-desc">Pabrik besar tempat mekar dan kempisnya udara berisi oksigen untuk dialirkan ke darah.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 6. Step-by-Step Proses -->
+            <div class="section-box" id="timelineSection" style="display: none;">
+                <h2 class="section-title">Rangkuman Proses Bertahap</h2>
+                <div class="timeline">
+                    <div class="tl-item">
+                        <div class="tl-content">
+                            <h4>Langkah 1: Udara Masuk</h4>
+                            <p>Udara bersih yang kaya akan Oksigen masuk melalui lubang hidung.</p>
+                        </div>
+                    </div>
+                    <div class="tl-item">
+                        <div class="tl-content">
+                            <h4>Langkah 2: Menuju Paru-paru</h4>
+                            <p>Oksigen menuruni eskalator trakea menuju dua cabang bronkus di dalam paru-paru.</p>
+                        </div>
+                    </div>
+                    <div class="tl-item">
+                        <div class="tl-content">
+                            <h4>Langkah 3: Pertukaran Gas</h4>
+                            <p>Di ujung alveolus, Oksigen ditukar dengan racun Karbon Dioksida dari darah.</p>
+                        </div>
+                    </div>
+                     <div class="tl-item">
+                        <div class="tl-content">
+                            <h4>Langkah 4: Udara Keluar</h4>
+                            <p>Karbon Dioksida didorong memantul keluar kembali ke alam lewat hembusan napas tubuh!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 7. Evaluasi (Quiz Button) -->
+            <div class="section-box" style="text-align: center; border: 4px solid var(--btn-action);">
+                <h3 style="margin-bottom: 15px; color: var(--btn-action); font-size: 1.8rem;">Sudah Siap Menguji Dirimu?</h3>
+                <p style="margin-bottom: 25px; font-weight:600; color:var(--text-muted);">Kerjakan latihan pemahaman seputar modul yang telah kamu pelajari di atas!</p>
+                <button id="btnGoToQuiz" class="btn" style="max-width: 400px; padding: 20px; font-size: 1.3rem;">Mulai Latihan Soal Sekarang</button>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="materi.js"></script>
+    <script>
+        // Simple DOM Tab functionality bound securely via window
+        function switchTab(type) {
+            const btns = document.querySelectorAll('.tab-btn');
+            const contents = document.querySelectorAll('.tab-content-box');
+            btns.forEach(btn => btn.classList.remove('active'));
+            contents.forEach(box => box.classList.remove('active'));
+            
+            if (type === 'full') {
+                btns[0].classList.add('active');
+                document.getElementById('tab-full').classList.add('active');
+            } else {
+                btns[1].classList.add('active');
+                document.getElementById('tab-simple').classList.add('active');
+            }
+        }
+    </script>
+</body>
+</html>

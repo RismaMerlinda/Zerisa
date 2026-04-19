@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zerisa - Publikasi Materi Bebas Batasan</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            overflow-y: auto !important;
+            height: auto !important;
+        }
+
+        .dashboard-content {
+            overflow-y: auto !important;
+            padding-bottom: 50px;
+        }
+
+        .form-container {
+            background: white;
+            border-radius: 25px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+            max-width: 900px;
+            margin: 20px auto;
+            border: 4px solid var(--primary-blue);
+        }
+        
+        .form-header {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+        .form-header h2 {
+            color: var(--primary-blue-dark);
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+
+        .base-card {
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            padding: 25px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+        }
+
+        .input-group { margin-bottom: 20px; }
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 800;
+            color: var(--text-main);
+            font-size: 1.1rem;
+        }
+        
+        .input-control {
+            width: 100%;
+            padding: 15px 20px;
+            border: 3px solid #cbd5e1;
+            border-radius: 15px;
+            font-size: 1.05rem;
+            outline: none;
+            transition: all 0.3s;
+            font-family: 'Nunito', sans-serif;
+            background: white;
+        }
+        .input-control:focus {
+            border-color: var(--btn-action);
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15);
+        }
+        textarea.input-control { min-height: 150px; resize: vertical; }
+
+        /* MULTI-ACCESS TOGGLES */
+        .addon-section { margin-bottom: 30px; }
+        .addon-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #eaf1fa;
+            padding: 15px 25px;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+        .addon-header:hover {
+            transform: translateY(-2px);
+            border-color: var(--primary-blue);
+        }
+        .addon-header.active {
+            background: var(--primary-blue);
+            color: white;
+        }
+        .addon-header.active h3, .addon-header.active p {
+            color: white;
+        }
+        
+        .addon-title h3 { font-size: 1.3rem; margin-bottom: 3px; color: var(--btn-action); }
+        .addon-title p { font-size: 0.9rem; color: var(--text-muted); font-weight: 600; margin: 0; }
+        
+        .toggle-btn {
+            background: white;
+            color: var(--btn-action);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-weight: 800;
+            font-size: 1rem;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .addon-body {
+            display: none;
+            background: #f8fafc;
+            border: 2px solid var(--primary-blue);
+            border-top: none;
+            padding: 25px;
+            border-radius: 0 0 15px 15px;
+            margin-top: -10px;
+            margin-bottom: 20px;
+            animation: slideDown 0.3s ease-out;
+        }
+        
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .preview-box {
+            margin-top: 15px;
+            background: #000;
+            border-radius: 15px;
+            overflow: hidden;
+            display: none;
+            padding-bottom: 56.25%;
+            position: relative;
+            height: 0;
+        }
+        .preview-box iframe {
+            position: absolute; top:0; left:0; width:100%; height:100%;
+        }
+
+        .btn-publish {
+            background: #22c55e;
+            color: white;
+            font-size: 1.4rem;
+            padding: 20px;
+            width: 100%;
+            border-radius: 20px;
+            border: none;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 6px 0px #166534;
+            transition: all 0.2s;
+            margin-top: 20px;
+        }
+        .btn-publish:hover {
+            transform: translateY(2px);
+            box-shadow: 0 4px 0px #166534;
+        }
+        .btn-publish:active {
+            transform: translateY(6px);
+            box-shadow: none;
+        }
+        
+        .back-btn {
+            background: #e2e8f0;
+            color: var(--text-main);
+            border: none;
+            padding: 12px 25px;
+            border-radius: 15px;
+            font-weight: 800;
+            cursor: pointer;
+            margin-bottom: 25px;
+            text-decoration: none;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">Zerisa <span style="font-size:1rem; color:#4b5563;">(GURU)</span></div>
+        <div class="user-info" id="userNameDisplay">Halo, Guru!</div>
+    </nav>
+
+    <div class="dashboard-content" style="overflow-y: visible;">
+        <a href="teacher-dashboard.html" class="back-btn">Kembali ke Ruang Guru</a>
+        
+        <div class="form-container">
+            <div class="form-header">
+                <h2>Rancang Materi Inklusif</h2>
+                <p style="color: var(--text-muted); font-weight: 700;">Konsep One Content Multi Access. Siswa disabilitas akan otomatis beradaptasi dengan fitur yang Anda tambahkan di bawah.</p>
+            </div>
+
+            <form id="addMateriForm">
+                
+                <!-- REQUIRED: MATERI DASAR -->
+                <div class="base-card">
+                    <div class="input-group">
+                        <label>Judul Mata Pelajaran / Modul</label>
+                        <input type="text" id="m_title" class="input-control" required placeholder="Contoh: Tata Surya dan Planet">
+                    </div>
+                    <div class="input-group" style="margin-bottom:0;">
+                        <label>Teks Penjelasan Utama (Siswa Umum)</label>
+                        <textarea id="m_content" class="input-control" required placeholder="Tuliskan materi pelajaran selengkap-lengkapnya di sini..."></textarea>
+                    </div>
+                </div>
+
+                <!-- ADDON: DISLEKSIA -->
+                <div class="addon-section">
+                    <div class="addon-header" onclick="toggleAddon('disleksia')">
+                        <div class="addon-title" id="title-disleksia">
+                            <h3>Tambah Akses Disleksia</h3>
+                            <p>Teks ringkas & terpusat. Meringankan beban literasi membaca.</p>
+                        </div>
+                        <button type="button" class="toggle-btn" id="btn-disleksia">Buka Form</button>
+                    </div>
+                    <div class="addon-body" id="body-disleksia">
+                        <label style="font-weight:800; margin-bottom:10px; display:block;">Ringkasan Materi (Disleksia)</label>
+                        <textarea id="m_simple" class="input-control" placeholder="Rangkum poin-poin penting dengan bahasa sangat sederhana..."></textarea>
+                    </div>
+                </div>
+
+                <!-- ADDON: TUNANETRA / AUDIO -->
+                <div class="addon-section">
+                    <div class="addon-header" onclick="toggleAddon('audio')">
+                        <div class="addon-title" id="title-audio">
+                            <h3>Tambah Akses Audio (Tunanetra)</h3>
+                            <p>Sediakan media dengar bagi mereka yang kesulitan melihat.</p>
+                        </div>
+                        <button type="button" class="toggle-btn" id="btn-audio">Buka Form</button>
+                    </div>
+                    <div class="addon-body" id="body-audio">
+                        <label style="font-weight:800; margin-bottom:10px; display:block;">URL Link Suara Pembelajaran (.mp3/.wav)</label>
+                        <input type="url" id="m_audio" class="input-control" placeholder="Contoh: https://link-ke-suara.mp3">
+                    </div>
+                </div>
+
+                <!-- ADDON: VIDEO YOUTUBE -->
+                <div class="addon-section">
+                    <div class="addon-header" onclick="toggleAddon('video')">
+                        <div class="addon-title" id="title-video">
+                            <h3>Tambah Akses Video Animasi</h3>
+                            <p>Akses bioskop visual pintar menggunakan YouTube materi.</p>
+                        </div>
+                        <button type="button" class="toggle-btn" id="btn-video">Buka Form</button>
+                    </div>
+                    <div class="addon-body" id="body-video">
+                        <label style="font-weight:800; margin-bottom:10px; display:block;">URL Embed YouTube</label>
+                        <input type="url" id="m_video" class="input-control" placeholder="Contoh: https://www.youtube.com/embed/xxxxx">
+                        <div class="preview-box" id="videoPreviewBox">
+                            <iframe id="videoPreview" allowfullscreen border="0"></iframe>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-publish" id="submitBtn">Simpan & Publikasikan Materi</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Pindahkan logic JS langsung ke sini atau sinkronkan via script terpisah -->
+    <script src="add-materi.js"></script>
+    <script>
+        // Interactive UI logic for toggling addons
+        function toggleAddon(id) {
+            const body = document.getElementById('body-' + id);
+            const btn = document.getElementById('btn-' + id);
+            const header = body.previousElementSibling;
+            
+            if (body.style.display === 'block') {
+                body.style.display = 'none';
+                btn.textContent = 'Buka Form';
+                header.classList.remove('active');
+            } else {
+                body.style.display = 'block';
+                btn.textContent = 'Tutup Form';
+                header.classList.add('active');
+            }
+        }
+    </script>
+</body>
+</html>

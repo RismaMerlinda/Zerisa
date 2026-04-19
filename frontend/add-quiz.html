@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zerisa - Input Kuis (Guru)</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            overflow-y: auto !important;
+            height: auto !important;
+        }
+        .dashboard-content {
+            padding-bottom: 60px;
+        }
+        .form-container {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            max-width: 900px;
+            margin: 20px auto;
+            border-top: 8px solid #8b5cf6;
+        }
+        .form-container h2 {
+            margin-bottom: 5px;
+            color: #6d28d9;
+            font-size: 2rem;
+        }
+        .input-group {
+            margin-bottom: 25px;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 800;
+            color: var(--text-main);
+        }
+        .input-control {
+            width: 100%;
+            padding: 15px;
+            border: 3px solid #e2e8f0;
+            border-radius: 15px;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s;
+            font-family: 'Nunito', sans-serif;
+            background: #fafbfc;
+        }
+        .input-control:focus {
+            border-color: #8b5cf6;
+            background: white;
+            box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.1);
+        }
+        textarea.input-control {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .back-btn {
+            background: #e2e8f0;
+            color: var(--text-main);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-bottom: 20px;
+            text-decoration: none;
+            display: inline-block;
+            font-family: 'Nunito', sans-serif;
+        }
+        
+        .correct-answer-select {
+            border-color: #22c55e;
+            background: #f0fdf4;
+            color: #166534;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">Zerisa <span style="font-size:1rem; color:#4b5563;">(GURU)</span></div>
+        <div class="user-info" id="userNameDisplay">Halo, Guru!</div>
+    </nav>
+
+    <div class="dashboard-content" style="overflow-y: visible;">
+        <a href="teacher-dashboard.html" class="back-btn">Kembali ke Dashboard</a>
+        
+        <div class="form-container">
+            <h2>Buat Bank Soal Kuis</h2>
+            <p style="color: var(--text-muted); font-weight:600; margin-bottom: 30px;">
+                Tautkan soal objektif (pilihan ganda) ini pada Modul Materi yang telah dibuat.
+            </p>
+
+            <form id="addQuizForm">
+                <div class="input-group">
+                    <label>Tautkan ke Materi:</label>
+                    <select id="q_materi_id" class="input-control" required>
+                        <option value="">-- Sedang memuat modul materi... --</option>
+                    </select>
+                </div>
+                
+                <div class="input-group">
+                    <label>Pertanyaan Kuis</label>
+                    <textarea id="q_question" class="input-control" required placeholder="Tuliskan pertanyaan uji nalar di sini..."></textarea>
+                </div>
+                
+                <div class="options-grid">
+                    <div class="input-group">
+                        <label>Pilihan A</label>
+                        <input type="text" id="q_a" class="input-control" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Pilihan B</label>
+                        <input type="text" id="q_b" class="input-control" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Pilihan C</label>
+                        <input type="text" id="q_c" class="input-control" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Pilihan D</label>
+                        <input type="text" id="q_d" class="input-control" required>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label>Kunci Jawaban Benar</label>
+                    <select id="q_correct" class="input-control correct-answer-select" required>
+                        <option value="a">A</option>
+                        <option value="b">B</option>
+                        <option value="c">C</option>
+                        <option value="d">D</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label>Kalimat Pembahasan Ekstra</label>
+                    <textarea id="q_explanation" class="input-control" required placeholder="Berikan penjelasan agar anak sadar letak kesalahannya..."></textarea>
+                </div>
+
+                <button type="submit" class="btn" id="submitBtn" style="padding: 18px; font-size: 1.2rem; background: #8b5cf6; box-shadow: 0 5px 0px #6d28d9;">Tambahkan Pertanyaan</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="add-quiz.js"></script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zerisa - Register</title>
+    <meta name="description" content="Daftar ke Zerisa, sistem pembelajaran inklusif untuk semua kebutuhan anak.">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="auth-container">
+        <div class="card">
+            <h1>Zerisa</h1>
+            <p>Ayo daftar belajar bersama!</p>
+            <form id="registerForm">
+                <div class="form-group">
+                    <label for="name">Nama Lengkap</label>
+                    <input type="text" id="name" class="form-control" required placeholder="Cth: Budi Santoso">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" class="form-control" required placeholder="Cth: budi@sekolah.com">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" class="form-control" required placeholder="Katakunci rahasia">
+                </div>
+                <div class="form-group">
+                    <label for="role">Saya adalah</label>
+                    <select id="role" class="form-control">
+                        <option value="siswa">Siswa</option>
+                        <option value="guru">Guru</option>
+                        <option value="orangtua">Orang Tua</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="kebutuhan">Kebutuhan Khusus</label>
+                    <select id="kebutuhan" class="form-control">
+                        <option value="lainnya">Tidak Ada / Umum</option>
+                        <option value="tunanetra">Tunanetra (Audio)</option>
+                        <option value="disleksia">Disleksia (Sederhana)</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn">Daftar Sekarang</button>
+            </form>
+            <a href="login.html" class="link-text">Sudah punya akun? Masuk di sini</a>
+            <div id="alertMessage" style="margin-top: 15px; color: red; font-weight: bold;"></div>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>

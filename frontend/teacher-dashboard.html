@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zerisa - Dashboard Guru</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .stat-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border: 3px solid #eaf1fa;
+        }
+        .stat-card h3 {
+            font-size: 2.5rem;
+            color: var(--primary-blue-dark);
+            margin-bottom: 5px;
+        }
+        .stat-card p {
+            color: var(--text-muted);
+            font-weight: 800;
+        }
+        
+        .action-flex {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            justify-content: center;
+        }
+
+        .student-table-container {
+            background: white;
+            padding: 25px;
+            border-radius: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            overflow-x: auto;
+            width: 100%;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            text-align: left;
+        }
+        
+        thead {
+            background: #eaf1fa;
+            color: var(--primary-blue-dark);
+        }
+        
+        th, td {
+            padding: 15px;
+            border-bottom: 2px solid #f1f5f9;
+            font-weight: 600;
+        }
+        
+        .type-badge {
+            background: var(--btn-action);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+        }
+        .type-badge.umum { background: #14b8a6; }
+        .type-badge.tunanetra { background: #f59e0b; }
+        .type-badge.disleksia { background: #8b5cf6; }
+        
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">Zerisa <span style="font-size:1rem; color:red;">(GURU)</span></div>
+        <div>
+            <span class="user-info" id="userNameDisplay">Halo!</span>
+            <button class="btn-logout" id="logoutBtn">Keluar</button>
+        </div>
+    </nav>
+
+    <div class="dashboard-content" style="overflow-y: visible;">
+        <div class="header-section" style="margin-bottom: 25px;">
+            <h2>Ruang Kendali Guru</h2>
+            <p style="color: var(--text-muted); font-weight: bold;">Kelola sistem inklusif tanpa batas (One Content Multi Access)</p>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3 id="statSiswa">0</h3>
+                <p>TOTAL SISWA</p>
+            </div>
+            <div class="stat-card">
+                <h3 id="statMateri">0</h3>
+                <p>MATERI</p>
+            </div>
+            <div class="stat-card">
+                <h3 id="statQuiz">0</h3>
+                <p>BANK SOAL</p>
+            </div>
+        </div>
+
+        <div class="action-flex">
+            <a href="add-materi.html" class="btn" style="max-width: 250px; text-align: center; text-decoration: none;">Tambah Materi Baru</a>
+            <a href="add-quiz.html" class="btn" style="max-width: 250px; background: #8b5cf6; box-shadow: 0 5px 0px #6d28d9; text-align: center; text-decoration: none;">Tambah Soal Kuis</a>
+        </div>
+
+        <div class="student-table-container">
+            <h3 style="color: var(--primary-blue-dark); font-size: 1.5rem; margin-bottom: 10px;">Daftar & Progress Siswa</h3>
+            <p style="color: var(--text-muted); margin-bottom: 15px; font-weight:600;">Pantau aktivitas dan akses tipe belajar cerdas mereka.</p>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>NAMA SISWA</th>
+                        <th>EMAIL</th>
+                        <th>MODE KEBUTUHAN</th>
+                        <th>MATERI SELESAI</th>
+                        <th>SKOR KUIS</th>
+                    </tr>
+                </thead>
+                <tbody id="studentTableBody">
+                    <tr><td colspan="5" style="text-align:center;">Memuat data siswa...</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="teacher-dashboard.js"></script>
+</body>
+</html>
